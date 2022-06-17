@@ -1,18 +1,28 @@
 package com.simba.book.domain.post;
 
-import org.aspectj.lang.annotation.After;
+import com.simba.book.dto.user.PostSaveRequestDto;
+import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PostRepositoryTest {
+
     @Autowired
     private PostRepository postRepository;
 
@@ -42,5 +52,6 @@ class PostRepositoryTest {
         assertThat(post.getContent()).isEqualTo(content);
         assertThat(post.getAuthor()).isEqualTo(author);
     }
+
 
 }

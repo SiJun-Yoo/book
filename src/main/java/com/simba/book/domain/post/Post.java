@@ -3,6 +3,7 @@ package com.simba.book.domain.post;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -29,5 +30,9 @@ public class Post {
         this.author = author;
     }
 
+    public void update(String title,String content){
+        this.title = title;
+        this.content = content;
+    }
 
 }
