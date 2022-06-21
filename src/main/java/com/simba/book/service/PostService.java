@@ -2,13 +2,16 @@ package com.simba.book.service;
 
 import com.simba.book.domain.post.Post;
 import com.simba.book.domain.post.PostRepository;
+import com.simba.book.dto.PostListResponseDto;
 import com.simba.book.dto.PostUpdateRequestDto;
-import com.simba.book.dto.user.PostResponseDto;
-import com.simba.book.dto.user.PostSaveRequestDto;
+import com.simba.book.dto.PostResponseDto;
+import com.simba.book.dto.PostSaveRequestDto;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -30,5 +33,12 @@ public class PostService {
     public PostResponseDto findById(Long id){
         Post post = postRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         return new PostResponseDto(post);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostListResponseDto> findAllDesc() {
+        return postRepository.findAllDesc().stream()
+                .map(PostListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }

@@ -1,8 +1,8 @@
 package com.simba.book.controller;
 
 import com.simba.book.dto.PostUpdateRequestDto;
-import com.simba.book.dto.user.PostResponseDto;
-import com.simba.book.dto.user.PostSaveRequestDto;
+import com.simba.book.dto.PostResponseDto;
+import com.simba.book.dto.PostSaveRequestDto;
 import com.simba.book.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

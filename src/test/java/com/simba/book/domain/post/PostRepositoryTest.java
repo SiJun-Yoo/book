@@ -1,20 +1,13 @@
 package com.simba.book.domain.post;
 
-import com.simba.book.dto.user.PostSaveRequestDto;
-import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,5 +46,26 @@ class PostRepositoryTest {
         assertThat(post.getAuthor()).isEqualTo(author);
     }
 
+    @Test
+    public void BaseTimeEntiy_등록() throws Exception{
+        //given
+        LocalDateTime now = LocalDateTime.of(2022,06,20,0,0,0);
+        postRepository.save(Post.builder()
+                .title("title")
+                .content("content")
+                .author("author")
+                .build());
+
+        //when
+        List<Post> posts = postRepository.findAll();
+
+        //then
+        Post post = posts.get(0);
+
+        System.out.println(">>>>>>>> createDate = " + post.getCreatedDate()+", modifiedDate = " + post.getModifiedDate());
+
+        assertThat(post.getCreatedDate()).isAfter(now);
+        assertThat(post.getModifiedDate()).isAfter(now);
+    }
 
 }

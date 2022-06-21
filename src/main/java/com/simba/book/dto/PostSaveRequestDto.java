@@ -1,4 +1,4 @@
-package com.simba.book.dto.user;
+package com.simba.book.dto;
 
 import com.simba.book.domain.post.Post;
 import lombok.Builder;
